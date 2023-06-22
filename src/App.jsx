@@ -1,4 +1,3 @@
-import './App.css';
 import { Header } from './components/Header';
 import { TaskList } from './components/TaskList';
 import { Flex,ChakraProvider} from '@chakra-ui/react';
