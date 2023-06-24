@@ -1,13 +1,20 @@
 import { Header } from './components/Header';
 import { TaskList } from './components/TaskList';
-import { Flex,ChakraProvider} from '@chakra-ui/react';
+import { Flex,ChakraProvider,extendTheme} from '@chakra-ui/react';
 
+const theme = extendTheme({
+  fonts: {
+    body: "Caprasimo, sans-serif",
+    heading: "Ubuntu, serif",
+    
+  },
+});
 
 function App() {
   
   return (
     
-    <ChakraProvider> 
+    <ChakraProvider theme={theme}> 
       <Flex
        minH="100vh" 
        display="flex"
@@ -15,7 +22,7 @@ function App() {
        justifyContent="center"
        flexDirection="column"
        bgGradient="linear(to bottom, rgba(34, 45, 195, 1), rgba(45, 189, 253, 1))" > 
-        <Header/>
+        <Header />
         <TaskList/>
       </Flex>
       </ChakraProvider>
