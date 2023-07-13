@@ -46,6 +46,7 @@ export const TaskList = () => {
   
   return (
     <Flex
+      mb="187px"
       fontFamily="Ubuntu"
       justifyContent="center"
       alignItems="center"

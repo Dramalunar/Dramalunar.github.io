@@ -11,6 +11,7 @@ export const Header = () => {
       bgGradient="linear-gradient(to right, #FFA8A8, #8FD3F4)"
       backgroundClip="text"
       fontWeight="bold"
+      
     >
       Task List
     </Heading>
