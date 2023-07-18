@@ -1,57 +1,65 @@
 import { Menu } from "./components/Menu";
-import { Flex, ChakraProvider, extendTheme} from "@chakra-ui/react";
-import { TaskProvider } from "./TaskContext";
+import { Flex} from "@chakra-ui/react";
+import { TaskProvider } from "../src/DataContext/TaskContext";
 import { BrowserRouter,Route,Routes } from "react-router-dom";
-import { Home } from "./pages/Home";
-import { Tasks } from "./pages/Tasks";
-import { AboutUs } from "./pages/AboutUs";
-import { Header } from "./components/Header";
+import React,{ Suspense } from "react";
+import {Header} from "./components/Header"
+import { ChakraUIProvider } from "./Chakra-UI/chakra-ui.provider";
+
+const Home = React.lazy(() => import("./pages/Home"))
+const Tasks = React.lazy(() => import("./pages/Tasks"))
+const AboutUs = React.lazy(() => import("./pages/AboutUs"))
 
 
 
 
+ 
+  
 
-const theme = extendTheme({
-  fonts: {
-    body: "Caprasimo, sans-serif",
-    heading: "Ubuntu, serif",
-  },
-});
+function AppRouter () {
 
-export function AppRouter () {
+  
+
   return (
     <>
-    <Header/>
-     <Menu />
-         <Routes>
+    <BrowserRouter> 
+    <Header />
+      <Menu />
+    <Suspense fallback="Loading...">
+       <Routes>
           <Route path="/" element={<Home/>}></Route>
           <Route path="/tasks" element={<Tasks/> }></Route>
           <Route path="/about-us" element={<AboutUs/>}></Route>
-         </Routes>
+       </Routes>
+      </Suspense>
+     </BrowserRouter>
     </>
   )
 }
 
 function App() {
   return (
-    <BrowserRouter> 
-    <ChakraProvider theme={theme}>
-      <TaskProvider>
+    
+  <ChakraUIProvider> 
+    <TaskProvider>
         <Flex
           minH="100vh"
           display="flex"
           alignItems="center"
-          justifyContent="center"
+          justifyContent="baseline"
           flexDirection="column"
-          bgGradient="linear(to bottom, rgba(34, 45, 195, 1), rgba(45, 189, 253, 1))"
+          
+          background="radial-gradient(circle, rgba(219,242,39,1) 7%, rgba(159,193,49,1) 40%, rgba(4,41,64,1) 75%)"
         >
          
           <AppRouter />
 
         </Flex>
       </TaskProvider>
-    </ChakraProvider>
-    </BrowserRouter>
+  </ChakraUIProvider> 
+     
+    
+    
    
   );
 }

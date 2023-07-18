@@ -13,6 +13,7 @@ import {
   FormLabel,
   Input,
   Textarea,
+  useColorMode,
 } from "@chakra-ui/react";
 
 export const Task = ({
@@ -24,6 +25,8 @@ export const Task = ({
 }) => {
   const [editedName, setEditedName] = useState(task.name);
   const [editedDescrip, setEditedDescrip] = useState(task.description);
+
+  const {colorMode} = useColorMode()
 
   const handleUpdateTask = () => {
     updateTask(task.id, editedName, editedDescrip);
@@ -44,7 +47,7 @@ export const Task = ({
 
   if (task.editMode) {
     return (
-      <Flex direction="column" alignItems="center" w="315px">
+      <Flex direction="column" alignItems="center" w="315px" bg={colorMode === "light" ? "#fff" : "#2E2A29"}>
         <li>
           <Input
             type="text"
@@ -84,7 +87,7 @@ export const Task = ({
           alignItems="center"
           pl="10px"
           h="35px"
-          bg="#DBE7F5"
+          bg={colorMode === "light" ? "#fff" : "#2E2A29"}
           m="0 15px 10px 0"
         >
           <Checkbox
@@ -131,7 +134,7 @@ export const Task = ({
         {task.description && (
           <Box
             borderRadius="0 0 10px 10px"
-            bg="#B4EAFA"
+            bg={colorMode === "light" ? "#B4EAFA" : "#2E2A29"}
             w="301px"
             mt="-10px"
             mb="10px"
