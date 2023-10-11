@@ -1,22 +1,95 @@
-import {Flex, Heading, useColorMode,} from "@chakra-ui/react";
+import {
+  Flex,
+  Heading,
+  UnorderedList,
+  useColorMode,
+  Box,
+  Button,
+} from "@chakra-ui/react";
 import { ColorModeToggler } from "./ColorModeToggler";
-
+import { Link, useNavigate } from "react-router-dom";
+import { useContext } from "react";
+import { TaskContext } from "../DataContext/TaskContext";
 
 export const Header = () => {
+  const { colorMode } = useColorMode();
 
-  const {colorMode} = useColorMode();
-   
+  const navigate = useNavigate();
+
+  const {registered,LogOut} = useContext(TaskContext);
+
+
+  function handleLongOut () {
+    LogOut();
+    navigate("/home")
+  }
   return (
-    <Flex border="2px" h="100px" mt="25px" w="400px" bg={colorMode === "light" ? "#fff" : "#332F2E"} alignItems="center" justifyContent="center" mb="10px" borderRadius="20px">
-    <Heading mr="20px" as="h1" fontSize="50px" fontFamily="Fantasy" bgGradient="linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 50%, rgba(252,176,69,1) 100%)"
-      backgroundClip="text"
-      fontWeight="bold" ml="35px">
-      Task List
-    </Heading>
-    <ColorModeToggler />
-  </Flex>
-  
+    <Flex
+      h="100px"
+      w="100vw"
+      bg={colorMode === "light" ? "#fff" : "#000009"}
+      alignItems="center"
+      mt="0"
+      mb="15px"
+      position={"relative"}
       
-    
+    >
+      <Flex w="60%"  h="100%" alignItems={"center"} justifyContent={"flex-end"}>
+        <Heading
+          mr="20px"
+          as="h1"
+          fontSize="50px"
+          fontFamily="Fantasy"
+          bgGradient="linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 50%, rgba(252,176,69,1) 100%)"
+          backgroundClip="text"
+          fontWeight="bold"
+          
+        >
+          Task List
+        </Heading>
+        <ColorModeToggler />
+      </Flex>
+      <Flex  h="100%" w="40%" display={"flex"} flexDirection={"row"}  justifyContent={"flex-end"} px="10px" alignItems={"center"}>
+        
+     <Flex display={registered ? "none" : "flex"}>
+      <Box
+              boxShadow="1px 1px 1px rgba(0, 0, 0, 0.4), -1px -1px 1px rgba(0, 0, 0, 0.4)"
+              
+              fontWeight="bold"
+              p="3px 20px "
+              borderRadius="10px"
+              mr="20px"
+            >
+              <Link to="/login">Sing In</Link>
+            </Box>
+          
+          
+            <Box
+              boxShadow="1px 1px 1px rgba(0, 0, 0, 0.4), -1px -1px 1px rgba(0, 0, 0, 0.4)"
+              
+              fontWeight="bold"
+              p="3px 20px "
+              borderRadius="10px"
+              mr="60px">
+              <Link to="/register">Sing Up</Link>
+            </Box>
+     </Flex>
+            <Box
+              boxShadow="1px 1px 1px rgba(0, 0, 0, 0.4), -1px -1px 1px rgba(0, 0, 0, 0.4)"
+              display={registered ? "inline-block" : "none"}
+              fontWeight="bold"
+              p="3px 20px "
+              borderRadius="10px"
+              mr="60px">
+              <Button onClick={handleLongOut}>Long Out</Button>
+            </Box>
+          
+        </Flex>
+        
+          
+            
+        
+      
+    </Flex>
   );
 };

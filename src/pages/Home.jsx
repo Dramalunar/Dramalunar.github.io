@@ -9,11 +9,11 @@ const Home = () => {
         <Flex
         w="400px"
         h="430px"
-        fontFamily="Ubuntu"
+        fontFamily="Numans"
         justifyContent="center"
         alignItems="center"
         flexDirection="column"
-        bg={colorMode === "light" ? "#fff" : "#332F2E"}
+        bg={colorMode === "light" ? "#fff" : "#000009"}
         borderRadius="10px"
         padding="20px"
         boxShadow="1px 1px 1px rgba(0, 0, 0, 0.4), -1px -1px 1px rgba(0, 0, 0, 0.4)">

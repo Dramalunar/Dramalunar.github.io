@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faFloppyDisk,
@@ -10,103 +10,132 @@ import {
   Button,
   Checkbox,
   Flex,
+  FormControl,
+  FormErrorMessage,
   FormLabel,
   Input,
+  Stack,
   Textarea,
   useColorMode,
 } from "@chakra-ui/react";
+import { useForm } from "react-hook-form";
+import { TaskContext } from "../DataContext/TaskContext";
 
-export const Task = ({
-  task,
-  updateTask,
-  deteledTask,
-  tongleEditMode,
-  checkedBox,
-}) => {
-  const [editedName, setEditedName] = useState(task.name);
-  const [editedDescrip, setEditedDescrip] = useState(task.description);
+export const Task = ({ task, dispatch }) => {
+  const { UpdateTask, DeleteTask, CompleteTask, IncompleteTask, EditMode } =
+    useContext(TaskContext);
 
-  const {colorMode} = useColorMode()
+  const { colorMode } = useColorMode();
 
-  const handleUpdateTask = () => {
-    updateTask(task.id, editedName, editedDescrip);
-    tongleEditMode(task.id);
+  const {
+    register,
+    handleSubmit,
+    formState: { errors, isValid, isSubmitted },
+    reset,
+  } = useForm({
+    defaultValues: {
+      EditedTitle: task.title,
+      EditedDescrip: task.description,
+    }
+    
+  });
+
+  const idTask = task._id;
+
+  const handleUpdateTask = (data) => {
+    UpdateTask(idTask, data.EditedTitle, data.EditedDescrip);
   };
 
-  const handleDeletedTask = () => {
-    deteledTask(task.id);
+  const handleDeleteTask = () => {
+    DeleteTask(idTask);
+  };
+
+  const handleCompleteTask = () => {
+    CompleteTask(idTask);
+  };
+  const handleIncompleteTask = () => {
+    IncompleteTask(idTask);
   };
 
   const handleEditMode = () => {
-    tongleEditMode(task.id);
-  };
-
-  const handleTaskCount = () => {
-    checkedBox(task.id);
+    EditMode(idTask);
   };
 
   if (task.editMode) {
     return (
-      <Flex direction="column" alignItems="center" w="315px" bg={colorMode === "light" ? "#fff" : "#2E2A29"}>
-        <li>
-          <Input
-            type="text"
-            value={editedName}
-            onChange={(e) => setEditedName(e.target.value)}
-            w="225px"
-            onKeyDown={(e) => {
-              if (e.key === "Enter") {
-                handleSaveTask();
-              }
-            }}
-          />
-          <Textarea
-            type="text"
-            value={editedDescrip}
-            onChange={(e) => setEditedDescrip(e.target.value)}
-            w="225px"
-            onKeyDown={(e) => {
-              if (e.key === "Enter") {
-                handleUpdateTask();
-              }
-            }}
-            maxH="90px"
-            resize="none"
-          />
-          <Button onClick={handleUpdateTask} ml="22px">
-            <FontAwesomeIcon icon={faFloppyDisk} />
-          </Button>
-        </li>
+      <Flex
+      justifyContent={"center"}
+        alignItems="center"
+        w="301px"
+        bg={colorMode === "light" ? "#fff" : "#2E2A29"}
+        borderRadius={"10px"}
+      >
+        <form onSubmit={handleSubmit(handleUpdateTask)}>
+          <FormControl isInvalid={errors.EditedTitle}>
+            <Stack direction={"row"} alignItems={"center"} p="5px">
+              <Stack direction={"column"} >
+              <Input
+                m="0"
+                type="text"
+                
+                {...register("EditedTitle", {
+                  required: "The task is required",
+                })}
+              />
+              <FormErrorMessage>
+                {isSubmitted &&
+                  errors.EditedTitle &&
+                  errors.EditedTitle.message}
+              </FormErrorMessage>
+              <Textarea
+                
+                type="text"
+                maxH="90px"
+                resize="none"
+                {...register("EditedDescrip")}
+              />
+            </Stack>
+            <Stack>
+                <Button h="128px" type="submit" disabled={!isValid} >
+              <FontAwesomeIcon icon={faFloppyDisk} />
+              </Button>
+              </Stack>
+              
+            </Stack>
+
+            
+          </FormControl>
+        </form>
       </Flex>
     );
   } else {
     return (
-      <li>
+      <Flex flexDirection={"column"}>
         <Flex
           justifyContent="center"
           alignItems="center"
           pl="10px"
           h="35px"
           bg={colorMode === "light" ? "#fff" : "#2E2A29"}
-          m="0 15px 10px 0"
+          mb="10px"
         >
           <Checkbox
             isChecked={task.status}
-            id={`checkbox-${task.id}`}
-            name={`checkbox-${task.id}`}
-            onChange={handleTaskCount}
+            id={`checkbox-${task._id}`}
+            name={`checkbox-${task._id}`}
+            onChange={task.status ? handleIncompleteTask : handleCompleteTask}
             borderColor="gray"
             colorScheme="green"
           />
 
           <FormLabel
             className="textoTarea"
-            htmlFor={`checkbox-${task.id}`}
+            htmlFor={`checkbox-${task._id}`}
             w="200px"
             display="inline-block"
             m="0 5px"
           >
-            {task.name}
+            {task.title}
           </FormLabel>
 
           <Button
@@ -122,7 +151,7 @@ export const Task = ({
           </Button>
 
           <Button
-            onClick={handleDeletedTask}
+            onClick={handleDeleteTask}
             display="inline-block"
             textAlign="center"
             h="30px"
@@ -143,7 +172,9 @@ export const Task = ({
             <h4>{task.description}</h4>
           </Box>
         )}
-      </li>
+      </Flex>
+        
+      
     );
   }
 };

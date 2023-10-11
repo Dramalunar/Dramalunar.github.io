@@ -14,7 +14,7 @@ const AboutUs = () => {
         justifyContent="center"
         alignItems="center"
         flexDirection="column"
-        bg={colorMode === "light" ? "#fff" : "#332F2E"}
+        bg={colorMode === "light" ? "#fff" : "#000009"}
         borderRadius="10px"
         padding="20px"
         boxShadow="1px 1px 1px rgba(0, 0, 0, 0.4), -1px -1px 1px rgba(0, 0, 0, 0.4)">
@@ -24,7 +24,8 @@ const AboutUs = () => {
            <UnorderedList listStyleType="none">
             <ListItem textAlign="justify">
                 <ListIcon as={FontAwesomeIcon} icon={faCheck} style={{ color: "green" }} size="lg"/> <strong>Task Creation:</strong>  Easily add new tasks to your list with all the necessary details, such as due dates, priorities, and descriptions.</ListItem>
-            <ListItem textAlign="justify"> <ListIcon as={FontAwesomeIcon} icon={faPencil} style={{ color: "blue" }} size="lg"/> <strong>Task Editing:</strong>  Modify existing tasks by editing their descriptions, due dates, priorities, or any other relevant information. Adapt your tasks to changing needs effortlessly.</ListItem>
+            <ListItem textAlign="justify"> 
+            <ListIcon as={FontAwesomeIcon} icon={faPencil} style={{ color: "blue" }} size="lg"/> <strong>Task Editing:</strong>  Modify existing tasks by editing their descriptions, due dates, priorities, or any other relevant information. Adapt your tasks to changing needs effortlessly.</ListItem>
             <ListItem textAlign="justify"> <ListIcon as={FontAwesomeIcon} icon={faTrashCan} style={{ color: "#FA4B3F" }} size="lg"/> <strong> Task Deletion:</strong> Remove completed or unnecessary tasks from your list with just a click. Keep your task list clutter-free and focused on what matters.</ListItem>
            </UnorderedList>
            <br/>

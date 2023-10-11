@@ -12,8 +12,8 @@ const config = {
 export const chakraCustomTheme = extendTheme({
     config,
     fonts: {
-        body: "Caprasimo, sans-serif",
-        heading: "Ubuntu, serif",
+        body: "Numans, sans-serif",
+        heading: "Montserrat, serif",
       },
       components: { Switch: switchTheme },
       

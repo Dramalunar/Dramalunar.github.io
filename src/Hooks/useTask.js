@@ -2,111 +2,11 @@ import { useContext, useReducer } from "react";
 import { TaskContext } from "../DataContext/TaskContext";
 
 export const useTask = () => {
-  const {
-    editMode,
-    tasks,
-    taskCount,
-    setTaskCount,
-    checked,
-  } = useContext(TaskContext);
 
-  const reducer = (state, action) => {
-    switch (action.type) {
-      case "createTask":
-        if (action.payload.newTask.trim() !== "") {
-          const task = {
-            id: Date.now(),
-            name: action.payload.newTask,
-            description: action.payload.newDescription,
-            status: action.payload.checked,
-            editMode: action.payload.editmode,
-          };
+  const { editMode, tasks, taskCount, setTaskCount, checked } =
+    useContext(TaskContext);
 
-          return {
-            ...state,
-            tasks: [...state.tasks, task],
-          };
-        }
-        return state;
-
-      case "deleteTask":
-        const taskId = action.payload;
-        return {
-          ...state,
-          tasks: state.tasks.filter((task) => task.id !== taskId),
-        };
-
-      case "tongleEditMode":
-        const editId = action.payload;
-        return {
-          ...state,
-          tasks: state.tasks.map((task) => {
-            if (task.id === editId) {
-              return {
-                ...task,
-                editMode: !task.editMode,
-              };
-            }
-            return task;
-          }),
-        };
-
-      case "checkedBox":
-        const checkedId = action.payload;
-        return {
-          ...state,
-          tasks: state.tasks.map((task) => {
-            if (task.id === checkedId) {
-              return {
-                ...task,
-                status: !task.status,
-              };
-            }
-            return task;
-          }),
-        };
-
-      case "clearAll":
-        return {
-          ...state,
-          tasks: [],
-        };
-
-      case "updateTask":
-        const updateId = action.payload.updateId;
-        return {
-          ...state,
-          tasks: state.tasks.map((task) => {
-            if (task.id === updateId) {
-              return {
-                ...task,
-                name: action.payload.editedName,
-                description: action.payload.editedDescrip,
-              };
-            }
-            return task;
-          }),
-        };
-
-      default:
-        return state;
-    }
-  };
-
-  const [state, dispatch] = useReducer(reducer, { tasks });
-
-  const createTask = (newTask,newDescription) => {
-    dispatch({
-      type: "createTask",
-      payload: {
-        newTask,
-        newDescription,
-        checked,
-        editMode,
-      },
-    });
-    setTaskCount(taskCount + 1);
-  };
+  
 
   const updateTask = (updateId, editedName, editedDescrip) => {
     dispatch({
