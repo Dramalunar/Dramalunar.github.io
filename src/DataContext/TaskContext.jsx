@@ -9,7 +9,9 @@ export const TaskProvider = ({ children }) => {
   const [token, setToken] = useState(() => {
     return localStorage.getItem("token");
   });
- const [registered, setRegister] = useState(false);
+  const [registered, setRegister] = useState(() => {
+    return localStorage.getItem("isLogin");
+  });
  const [isError,setIsError] = useState(false);
 
 
@@ -49,7 +51,12 @@ export const TaskProvider = ({ children }) => {
 
   useEffect(() => {
     fetchData();
+    console.log(registered)
   }, []);
+
+  useEffect(() => {
+    localStorage.setItem("isLogin",registered)
+  }, [registered]);
 
   useEffect(() => {
     TasksCounts();
@@ -243,22 +250,29 @@ export const TaskProvider = ({ children }) => {
           });
         break;
         case "LongOut":
-          fetch(`http://localhost:3000/logout`,
-          {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-              "authorization": `${token}`,
-            },
-          }).then((response) => {
-            if (response.status !== 404){
-              setToken("");
-              setRegister(false);
-              localStorage.removeItem("token")
-            }
-          })
-          
-          break;
+  fetch("http://localhost:3000/user/logout", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+      "authorization": `${token}`,
+    },
+  })
+    .then((response) => {
+      if (response.ok) {
+        
+        localStorage.removeItem("token");
+        setRegister(false);
+        setToken(" ");
+      } else {
+        throw new Error("La solicitud no fue exitosa.");
+      }
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
+  
+  break;
+
       case "incompleteTask":
         fetch(
           `http://localhost:3000/tasks/incomplete/${action.payload.idTask}`,
@@ -336,6 +350,8 @@ export const TaskProvider = ({ children }) => {
   return (
     <TaskContext.Provider
       value={{
+        setToken,
+        setRegister,
         LogOut,
         isError,
         LogInUser,

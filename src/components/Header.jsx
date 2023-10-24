@@ -16,13 +16,17 @@ export const Header = () => {
 
   const navigate = useNavigate();
 
-  const {registered,LogOut} = useContext(TaskContext);
+  const {setToken,setRegister,registered,LogOut} = useContext(TaskContext);
 
 
   function handleLongOut () {
     LogOut();
-    navigate("/home")
+    navigate("/")
+    setToken(" ")
+    setRegister(false)
+    console.log(registered)
   }
+
   return (
     <Flex
       h="100px"
