@@ -1,20 +1,16 @@
 import { extendTheme } from "@chakra-ui/react";
-import  {switchTheme}  from "./SwichtCustom";
+import { switchTheme } from "./SwichtCustom";
 
 const config = {
-    initialColormode:"Dark",
-    useSystemColorMode:false,
-    
+  initialColormode: "Dark",
+  useSystemColorMode: false,
 };
 
-
-
 export const chakraCustomTheme = extendTheme({
-    config,
-    fonts: {
-        body: "Numans, sans-serif",
-        heading: "Montserrat, serif",
-      },
-      components: { Switch: switchTheme },
-      
-})
+  config,
+  fonts: {
+    body: "Numans, sans-serif",
+    heading: "Montserrat, serif",
+  },
+  components: { Switch: switchTheme },
+});

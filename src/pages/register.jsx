@@ -40,8 +40,12 @@ function Register() {
 
   function handleCreateUser(data) {
     CreateUser(data.Name, data.Correo, data.Contraseña);
-    
+
     reset();
+  }
+
+  function handleLogin() {
+    navigate("/login");
   }
 
   return (
@@ -134,7 +138,7 @@ function Register() {
               </FormControl>
             </form>
 
-            <a href="">Have an account? Log in now</a>
+            <a onClick={handleLogin}>Have an account? Log in now</a>
           </Flex>
         </Flex>
       </Flex>

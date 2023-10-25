@@ -1,5 +1,4 @@
-import { createContext, useEffect } from "react";
-import { useState, useReducer } from "react";
+import { createContext, useEffect, useState, useReducer } from "react";
 
 export const TaskContext = createContext();
 
@@ -10,22 +9,24 @@ export const TaskProvider = ({ children }) => {
     return localStorage.getItem("token");
   });
   const [registered, setRegister] = useState(() => {
-    return localStorage.getItem("isLogin");
-  });
- const [isError,setIsError] = useState(false);
+    const valueFromLocalStorage = localStorage.getItem("isLogin");
 
+    return valueFromLocalStorage === "true";
+  });
+
+  const [isError, setIsError] = useState(false);
 
   function TasksCounts() {
-    const incompleteTasks = tasks.filter((task) => task.status !== true);
+    const incompleteTasks = tasks.filter((task) => !task.status);
     const count = incompleteTasks.length;
     setTaskCount(count);
   }
 
   function fetchData() {
-    fetch("http://localhost:3000/tasks/task", {
+    fetch("https://task-list-back.onrender.com/tasks/task", {
       method: "POST",
       headers: {
-        "authorization": `${token}`,
+        authorization: `${token}`,
         "Content-Type": "application/json",
       },
     })
@@ -46,17 +47,18 @@ export const TaskProvider = ({ children }) => {
   }
 
   useEffect(() => {
-    fetchData();
-  }, [registered]);
+    if (registered === true) {
+      fetchData();
+    }
+    localStorage.setItem("token", token);
+    localStorage.setItem("isLogin", registered);
+  }, [token]);
 
   useEffect(() => {
-    fetchData();
-    console.log(registered)
+    if (registered === true) {
+      fetchData();
+    }
   }, []);
-
-  useEffect(() => {
-    localStorage.setItem("isLogin",registered)
-  }, [registered]);
 
   useEffect(() => {
     TasksCounts();
@@ -65,7 +67,7 @@ export const TaskProvider = ({ children }) => {
   const reducer = async (state, action) => {
     switch (action.type) {
       case "registerUser":
-        fetch("http://localhost:3000/user/register", {
+        fetch("https://task-list-back.onrender.com/user/register", {
           method: "POST",
           body: JSON.stringify({
             username: action.payload.UserName,
@@ -88,8 +90,9 @@ export const TaskProvider = ({ children }) => {
             console.log("Error al crear el token", error);
           });
         break;
+
       case "loginUser":
-        fetch("http://localhost:3000/user/login", {
+        fetch("https://task-list-back.onrender.com/user/login", {
           method: "POST",
           body: JSON.stringify({
             email: action.payload.Email,
@@ -100,9 +103,9 @@ export const TaskProvider = ({ children }) => {
           },
         })
           .then((response) => {
-            if(!response.ok){
-              throw Error("Contraseña incorrecta")
-            }else{
+            if (!response.ok) {
+              throw Error("Contraseña incorrecta");
+            } else {
               return response.json();
             }
           })
@@ -114,12 +117,13 @@ export const TaskProvider = ({ children }) => {
           })
           .catch((error) => {
             setRegister(false);
-            setIsError(true)
+            setIsError(true);
             console.log("Error al crear el token", error);
           });
         break;
+
       case "createTask":
-        fetch("http://localhost:3000/tasks/create", {
+        fetch("https://task-list-back.onrender.com/tasks/create", {
           method: "POST",
           body: JSON.stringify({
             title: action.payload.newTask,
@@ -127,7 +131,7 @@ export const TaskProvider = ({ children }) => {
           }),
           headers: {
             "Content-Type": "application/json",
-            "authorization": `${token}`,
+            authorization: `${token}`,
           },
         })
           .then((response) => {
@@ -144,11 +148,11 @@ export const TaskProvider = ({ children }) => {
         break;
 
       case "deleteTask":
-        fetch(`http://localhost:3000/tasks/delete/${action.payload.idTask}`, {
+        fetch(`https://task-list-back.onrender.com/tasks/delete/${action.payload.idTask}`, {
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",
-            "authorization": `${token}`,
+            authorization: `${token}`,
           },
         })
           .then((response) => {
@@ -165,18 +169,18 @@ export const TaskProvider = ({ children }) => {
         break;
 
       case "deleteAllTask":
-        fetch(`http://localhost:3000/tasks/deleteall`, {
+        fetch(`https://task-list-back.onrender.com/tasks/deleteall`, {
           method: "DELETE",
           headers: {
             "Content-Type": "application/json",
-            "authorization": `${token}`,
+            authorization: `${token}`,
           },
         })
           .then((response) => {
             if (response.ok) {
               fetchData();
             } else {
-              throw new Error("Error al eliminar todas las tarea");
+              throw new Error("Error al eliminar todas las tareas");
             }
           })
           .catch((error) => {
@@ -186,11 +190,11 @@ export const TaskProvider = ({ children }) => {
         break;
 
       case "tongleEditMode":
-        fetch(`http://localhost:3000/tasks/editmode/${action.payload}`, {
+        fetch(`https://task-list-back.onrender.com/tasks/editmode/${action.payload}`, {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
-            "authorization": `${token}`,
+            authorization: `${token}`,
           },
         })
           .then((response) => {
@@ -203,12 +207,13 @@ export const TaskProvider = ({ children }) => {
           .catch((error) => {
             console.error(
               "Error al activar el modo editar de la tarea:",
-              error
+              error,
             );
           });
         break;
+
       case "updateTask":
-        fetch(`http://localhost:3000/tasks/update/${action.payload.idTask}`, {
+        fetch(`https://task-list-back.onrender.com/tasks/update/${action.payload.idTask}`, {
           method: "PUT",
           body: JSON.stringify({
             newTitle: action.payload.editedName,
@@ -216,7 +221,7 @@ export const TaskProvider = ({ children }) => {
           }),
           headers: {
             "Content-Type": "application/json",
-            "authorization": `${token}`,
+            authorization: `${token}`,
           },
         })
           .then((response) => {
@@ -227,15 +232,16 @@ export const TaskProvider = ({ children }) => {
             }
           })
           .catch((error) => {
-            console.error("Error al actulizar la tarea:", error);
+            console.error("Error al actualizar la tarea:", error);
           });
         break;
+
       case "completeTask":
-        fetch(`http://localhost:3000/tasks/complete/${action.payload.idTask}`, {
+        fetch(`https://task-list-back.onrender.com/tasks/complete/${action.payload.idTask}`, {
           method: "PUT",
           headers: {
             "Content-Type": "application/json",
-            "authorization": `${token}`,
+            authorization: `${token}`,
           },
         })
           .then((response) => {
@@ -249,40 +255,40 @@ export const TaskProvider = ({ children }) => {
             console.error("Error en completar la tarea");
           });
         break;
-        case "LongOut":
-  fetch("http://localhost:3000/user/logout", {
-    method: "POST",
-    headers: {
-      "Content-Type": "application/json",
-      "authorization": `${token}`,
-    },
-  })
-    .then((response) => {
-      if (response.ok) {
-        
-        localStorage.removeItem("token");
-        setRegister(false);
-        setToken(" ");
-      } else {
-        throw new Error("La solicitud no fue exitosa.");
-      }
-    })
-    .catch((error) => {
-      console.error("Error:", error);
-    });
-  
-  break;
+
+      case "LogOut":
+        fetch("https://task-list-back.onrender.com/user/logout", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            authorization: `${token}`,
+          },
+        })
+          .then((response) => {
+            if (response.status === 200) {
+              setToken(" ");
+              setRegister(false);
+
+              console.log("Se cerró sesión correctamente");
+            } else {
+              throw new Error("La solicitud no fue exitosa.");
+            }
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
+        break;
 
       case "incompleteTask":
         fetch(
-          `http://localhost:3000/tasks/incomplete/${action.payload.idTask}`,
+          `https://task-list-back.onrender.com/tasks/incomplete/${action.payload.idTask}`,
           {
             method: "PUT",
             headers: {
               "Content-Type": "application/json",
-              "authorization": `${token}`,
+              authorization: `${token}`,
             },
-          }
+          },
         )
           .then((response) => {
             if (response.ok) {
@@ -294,6 +300,7 @@ export const TaskProvider = ({ children }) => {
           .catch((error) => {
             console.error("Error en completar la tarea", error);
           });
+        break;
 
       default:
         return state;
@@ -328,7 +335,7 @@ export const TaskProvider = ({ children }) => {
   };
 
   const LogOut = () => {
-    dispatch({ type: "LongOut" });
+    dispatch({ type: "LogOut" });
   };
 
   const DeleteAllTask = () => {
@@ -350,6 +357,7 @@ export const TaskProvider = ({ children }) => {
   return (
     <TaskContext.Provider
       value={{
+        setIsError,
         setToken,
         setRegister,
         LogOut,

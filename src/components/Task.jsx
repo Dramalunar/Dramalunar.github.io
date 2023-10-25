@@ -36,8 +36,7 @@ export const Task = ({ task, dispatch }) => {
     defaultValues: {
       EditedTitle: task.title,
       EditedDescrip: task.description,
-    }
-    
+    },
   });
 
   const idTask = task._id;
@@ -64,7 +63,7 @@ export const Task = ({ task, dispatch }) => {
   if (task.editMode) {
     return (
       <Flex
-      justifyContent={"center"}
+        justifyContent={"center"}
         alignItems="center"
         w="301px"
         bg={colorMode === "light" ? "#fff" : "#2E2A29"}
@@ -73,37 +72,32 @@ export const Task = ({ task, dispatch }) => {
         <form onSubmit={handleSubmit(handleUpdateTask)}>
           <FormControl isInvalid={errors.EditedTitle}>
             <Stack direction={"row"} alignItems={"center"} p="5px">
-              <Stack direction={"column"} >
-              <Input
-                m="0"
-                type="text"
-                
-                {...register("EditedTitle", {
-                  required: "The task is required",
-                })}
-              />
-              <FormErrorMessage>
-                {isSubmitted &&
-                  errors.EditedTitle &&
-                  errors.EditedTitle.message}
-              </FormErrorMessage>
-              <Textarea
-                
-                type="text"
-                maxH="90px"
-                resize="none"
-                {...register("EditedDescrip")}
-              />
-            </Stack>
-            <Stack>
-                <Button h="128px" type="submit" disabled={!isValid} >
-              <FontAwesomeIcon icon={faFloppyDisk} />
-              </Button>
+              <Stack direction={"column"}>
+                <Input
+                  m="0"
+                  type="text"
+                  {...register("EditedTitle", {
+                    required: "The task is required",
+                  })}
+                />
+                <FormErrorMessage>
+                  {isSubmitted &&
+                    errors.EditedTitle &&
+                    errors.EditedTitle.message}
+                </FormErrorMessage>
+                <Textarea
+                  type="text"
+                  maxH="90px"
+                  resize="none"
+                  {...register("EditedDescrip")}
+                />
               </Stack>
-              
+              <Stack>
+                <Button h="128px" type="submit" disabled={!isValid}>
+                  <FontAwesomeIcon icon={faFloppyDisk} />
+                </Button>
+              </Stack>
             </Stack>
-
-            
           </FormControl>
         </form>
       </Flex>
@@ -173,8 +167,6 @@ export const Task = ({ task, dispatch }) => {
           </Box>
         )}
       </Flex>
-        
-      
     );
   }
 };

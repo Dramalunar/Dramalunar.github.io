@@ -12,7 +12,7 @@ import { TaskContext } from "../DataContext/TaskContext";
 export function Menu() {
   const { colorMode } = useColorMode();
 
-  const {registered} = useContext(TaskContext);
+  const { registered } = useContext(TaskContext);
 
   return (
     <Flex

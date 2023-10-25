@@ -13,8 +13,7 @@ import {
 import { Task } from "../components/Task";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons";
-import { useTask } from "../Hooks/useTask";
-import { useContext, useEffect } from "react";
+import { useContext} from "react";
 import { useForm } from "react-hook-form";
 import { TaskContext } from "../DataContext/TaskContext";
 
@@ -84,7 +83,7 @@ const TaskList = () => {
                 </FormErrorMessage>
 
                 <Input
-                m="0"
+                  m="0"
                   type="text"
                   {...register("newDescription")}
                   borderColor="gray"
@@ -111,17 +110,12 @@ const TaskList = () => {
           </FormControl>
         </form>
       </Flex>
-        <Flex
-          flexDirection={"column-reverse"}
-          
-          maxH="200px"
-          overflowY={"auto"}
-        >
-          {tasks.map((task) => (
-            <Task key={task._id} task={task} dispatch={dispatch} />
-          ))}
-        </Flex>
-      
+      <Flex flexDirection={"column-reverse"} maxH="200px" overflowY={"auto"}>
+        {tasks.map((task) => (
+          <Task key={task._id} task={task} dispatch={dispatch} />
+        ))}
+      </Flex>
+
       <Box
         display="flex"
         w="320px"

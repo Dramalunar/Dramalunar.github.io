@@ -16,15 +16,11 @@ export const Header = () => {
 
   const navigate = useNavigate();
 
-  const {setToken,setRegister,registered,LogOut} = useContext(TaskContext);
+  const { setToken, setRegister, registered, LogOut } = useContext(TaskContext);
 
-
-  function handleLongOut () {
-    LogOut();
-    navigate("/")
-    setToken(" ")
-    setRegister(false)
-    console.log(registered)
+  async function handleLogOut() {
+    await LogOut();
+    navigate("/");
   }
 
   return (
@@ -36,9 +32,8 @@ export const Header = () => {
       mt="0"
       mb="15px"
       position={"relative"}
-      
     >
-      <Flex w="60%"  h="100%" alignItems={"center"} justifyContent={"flex-end"}>
+      <Flex w="60%" h="100%" alignItems={"center"} justifyContent={"flex-end"}>
         <Heading
           mr="20px"
           as="h1"
@@ -47,53 +42,52 @@ export const Header = () => {
           bgGradient="linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 50%, rgba(252,176,69,1) 100%)"
           backgroundClip="text"
           fontWeight="bold"
-          
         >
           Task List
         </Heading>
         <ColorModeToggler />
       </Flex>
-      <Flex  h="100%" w="40%" display={"flex"} flexDirection={"row"}  justifyContent={"flex-end"} px="10px" alignItems={"center"}>
-        
-     <Flex display={registered ? "none" : "flex"}>
-      <Box
-              boxShadow="1px 1px 1px rgba(0, 0, 0, 0.4), -1px -1px 1px rgba(0, 0, 0, 0.4)"
-              
-              fontWeight="bold"
-              p="3px 20px "
-              borderRadius="10px"
-              mr="20px"
-            >
-              <Link to="/login">Sing In</Link>
-            </Box>
-          
-          
-            <Box
-              boxShadow="1px 1px 1px rgba(0, 0, 0, 0.4), -1px -1px 1px rgba(0, 0, 0, 0.4)"
-              
-              fontWeight="bold"
-              p="3px 20px "
-              borderRadius="10px"
-              mr="60px">
-              <Link to="/register">Sing Up</Link>
-            </Box>
-     </Flex>
-            <Box
-              boxShadow="1px 1px 1px rgba(0, 0, 0, 0.4), -1px -1px 1px rgba(0, 0, 0, 0.4)"
-              display={registered ? "inline-block" : "none"}
-              fontWeight="bold"
-              p="3px 20px "
-              borderRadius="10px"
-              mr="60px">
-              <Button onClick={handleLongOut}>Long Out</Button>
-            </Box>
-          
+      <Flex
+        h="100%"
+        w="40%"
+        display={"flex"}
+        flexDirection={"row"}
+        justifyContent={"flex-end"}
+        px="10px"
+        alignItems={"center"}
+      >
+        <Flex display={registered ? "none" : "flex"}>
+          <Box
+            boxShadow="1px 1px 1px rgba(0, 0, 0, 0.4), -1px -1px 1px rgba(0, 0, 0, 0.4)"
+            fontWeight="bold"
+            p="3px 20px "
+            borderRadius="10px"
+            mr="20px"
+          >
+            <Link to="/login">Sing In</Link>
+          </Box>
+
+          <Box
+            boxShadow="1px 1px 1px rgba(0, 0, 0, 0.4), -1px -1px 1px rgba(0, 0, 0, 0.4)"
+            fontWeight="bold"
+            p="3px 20px "
+            borderRadius="10px"
+            mr="60px"
+          >
+            <Link to="/register">Sing Up</Link>
+          </Box>
         </Flex>
-        
-          
-            
-        
-      
+        <Box
+          boxShadow="1px 1px 1px rgba(0, 0, 0, 0.4), -1px -1px 1px rgba(0, 0, 0, 0.4)"
+          display={registered ? "inline-block" : "none"}
+          fontWeight="bold"
+          p="3px 20px "
+          borderRadius="10px"
+          mr="60px"
+        >
+          <Button onClick={handleLogOut}>Long Out</Button>
+        </Box>
+      </Flex>
     </Flex>
   );
 };

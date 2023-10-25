@@ -1,4 +1,4 @@
-import { useContext, useEffect, } from "react";
+import { useContext, useEffect } from "react";
 import { TaskContext } from "../DataContext/TaskContext";
 import {
   Flex,
@@ -13,19 +13,35 @@ import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 
 
+
+
 function Login() {
   const {
     register,
     handleSubmit,
     formState: { errors, isValid, isSubmitted },
-    reset,
   } = useForm({ mode: "onChange" });
 
-  const { registered,LogInUser,isError } = useContext(TaskContext);
+  const { registered, LogInUser, isError,setIsError } = useContext(TaskContext);
+
+
+useEffect(() => {
+
+  function delay(ms) {
+  return new Promise((resolve) => {
+    setTimeout(() => {
+      setIsError(false)
+      resolve();
+    }, ms); 
+  });
+}
+
+delay(5000)
+},[isError]);
 
   useEffect(() => {
     checktheRegister();
-  }, [registered]);
+  }, [registered]); 
 
   const navigate = useNavigate();
 
@@ -35,10 +51,9 @@ function Login() {
     }
   }
 
-  function handleLogIn(data){
-    LogInUser(data.Correo,data.Contraseña)
+  function handleLogIn(data) {
+    LogInUser(data.Correo, data.Contraseña);
   }
-
 
   const { colorMode } = useColorMode();
 
@@ -54,17 +69,24 @@ function Login() {
         p="10px"
       >
         <Flex
+        
           justifyContent={"baseline"}
           alignItems={"center"}
           flexDirection={"column"}
           w="100%"
           h="100%"
-          
         >
-          <Flex flexDirection={"column"}  w="100%" justifyContent={"center"} alignItems={"center"}>
+          <Flex
+          
+            flexDirection={"column"}
+            w="100%"
+            justifyContent={"center"}
+            alignItems={"center"}
+          >
             <form onSubmit={handleSubmit(handleLogIn)}>
-              <FormControl  isInvalid={errors.Correo && errors.Contraseña}>
+              <FormControl isInvalid={errors.Correo && errors.Contraseña}>
                 <Input
+                  w="430px"
                   borderRadius={"0"}
                   boxShadow="-1px 0 0.5px rgba(0, 0, 0, 0.2), 1px 0 0.5px rgba(0, 0, 0, 0.2)"
                   my="5px"
@@ -82,9 +104,8 @@ function Login() {
                   {isSubmitted && errors.Correo && errors.Correo.message}
                 </FormErrorMessage>
                 <Input
-                borderRadius={"0"}
-                boxShadow="-1px 0 0.5px rgba(0, 0, 0, 0.2), 1px 0 0.5px rgba(0, 0, 0, 0.2)"
-                  
+                  borderRadius={"0"}
+                  boxShadow="-1px 0 0.5px rgba(0, 0, 0, 0.2), 1px 0 0.5px rgba(0, 0, 0, 0.2)"
                   my="5px"
                   type="password"
                   placeholder="Password"
@@ -97,37 +118,39 @@ function Login() {
                     errors.Contraseña &&
                     errors.Contraseña.message}
                 </FormErrorMessage>
-                
+
                 <Button
-                bg="#127DDB"
-                w="100%"
-                mt="20px"
-                mb="10px"
-                type="submit"
-                disabled={!isValid}
-                fontSize={"20px"}
-                fontWeight={"100"}
-              >
-                Log In
-              </Button>
+                  bg="#127DDB"
+                  w="100%"
+                  mt="20px"
+                  mb="10px"
+                  type="submit"
+                  disabled={!isValid}
+                  fontSize={"20px"}
+                  fontWeight={"100"}
+                >
+                  Log In
+                </Button>
               </FormControl>
             </form>
-              {isError && (
-                <Box w="100%" h="20px">Email o Password incorret</Box>
-              )}
+            {isError && (
+              <Box textAlign={"center"} w="100%" h="20px">
+                Email o Password incorret
+              </Box>
+            )}
 
-            <a href="">Forgot your password?</a>
             <Button
-            mt="30px"
+              mt="30px"
               w="100%"
-                bg="#42B72A"
-                type="submit"
-                disabled={!isValid}
-                fontSize={"20px"}
-                fontWeight={"100"}
-              >
+              bg="#42B72A"
+              type="submit"
+              disabled={!isValid}
+              fontSize={"20px"}
+              fontWeight={"100"}
+              onClick={()=> navigate("/register")}
+            >
               Create new account
-              </Button>
+            </Button>
           </Flex>
         </Flex>
       </Flex>
