@@ -18,8 +18,8 @@ export const Header = () => {
 
   const { setToken, setRegister, registered, LogOut } = useContext(TaskContext);
 
-  async function handleLogOut() {
-    await LogOut();
+  function handleLogOut() {
+    LogOut();
     navigate("/");
   }
 
@@ -64,7 +64,7 @@ export const Header = () => {
             p="3px 20px "
             borderRadius="10px"
             mr={{base:"0",lg:"20px"}}
-            mb={{base:"10px"}}
+            mb={{base:"10px",lg:"0"}}
             
           >
             <Link to="/login">Sing In</Link>

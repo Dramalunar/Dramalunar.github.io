@@ -270,7 +270,7 @@ export const TaskProvider = ({ children }) => {
           .then((response) => {
             if (response.status === 200) {
               setToken(" ");
-              
+              setRegister(false);
 
               console.log("Se cerró sesión correctamente");
             } else {
