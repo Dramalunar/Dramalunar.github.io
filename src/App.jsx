@@ -19,7 +19,7 @@ function AppRouter() {
         <Flex flexDirection={"column"} alignItems={"center"} h="100vh">
           <Flex
             flexDirection={"column"}
-            h="30%"
+            h="20%"
             justifyContent={"flex-start"}
             alignItems={"center"}
           >
@@ -28,7 +28,7 @@ function AppRouter() {
           </Flex>
 
           <Flex
-            h="70%"
+            h="80%"
             w="100%"
             alignItems={"baseline"}
             justifyContent={"center"}

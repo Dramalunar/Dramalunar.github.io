@@ -37,7 +37,7 @@ export const Header = () => {
         <Heading
           mr="20px"
           as="h1"
-          fontSize="50px"
+          fontSize={{base:"35px",lg:"50px"}}
           fontFamily="Fantasy"
           bgGradient="linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 50%, rgba(252,176,69,1) 100%)"
           backgroundClip="text"
@@ -48,6 +48,7 @@ export const Header = () => {
         <ColorModeToggler />
       </Flex>
       <Flex
+      
         h="100%"
         w="40%"
         display={"flex"}
@@ -56,13 +57,15 @@ export const Header = () => {
         px="10px"
         alignItems={"center"}
       >
-        <Flex display={registered ? "none" : "flex"}>
+        <Flex display={registered ? "none": {base:"inline-block",lg:"flex"}}>
           <Box
             boxShadow="1px 1px 1px rgba(0, 0, 0, 0.4), -1px -1px 1px rgba(0, 0, 0, 0.4)"
             fontWeight="bold"
             p="3px 20px "
             borderRadius="10px"
-            mr="20px"
+            mr={{base:"0",lg:"20px"}}
+            mb={{base:"10px"}}
+            
           >
             <Link to="/login">Sing In</Link>
           </Box>
@@ -72,18 +75,19 @@ export const Header = () => {
             fontWeight="bold"
             p="3px 20px "
             borderRadius="10px"
-            mr="60px"
+            mr={{base:"0",lg:"60px"}}
+            
           >
             <Link to="/register">Sing Up</Link>
           </Box>
         </Flex>
         <Box
-          boxShadow="1px 1px 1px rgba(0, 0, 0, 0.4), -1px -1px 1px rgba(0, 0, 0, 0.4)"
+          
           display={registered ? "inline-block" : "none"}
           fontWeight="bold"
           p="3px 20px "
           borderRadius="10px"
-          mr="60px"
+          mr={{lg:"60px"}}
         >
           <Button onClick={handleLogOut}>Long Out</Button>
         </Box>

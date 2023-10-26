@@ -55,7 +55,7 @@ function Register() {
         justifyContent="center"
         borderRadius="10px"
         boxShadow="1px 1px 1px rgba(0, 0, 0, 0.4), -1px -1px 1px rgba(0, 0, 0, 0.4)"
-        w="450px"
+        w={{base:"90vw",lg:"450px"}}
         h="380px"
         p="15px"
       >

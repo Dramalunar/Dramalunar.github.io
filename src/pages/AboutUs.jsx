@@ -19,7 +19,7 @@ const AboutUs = () => {
 
   return (
     <Flex
-      w="1000px"
+      w={{base:"auto",lg:"1000px"}}
       h="auto"
       fontFamily="Ubuntu"
       justifyContent="center"
@@ -31,7 +31,7 @@ const AboutUs = () => {
       boxShadow="1px 1px 1px rgba(0, 0, 0, 0.4), -1px -1px 1px rgba(0, 0, 0, 0.4)"
     >
       <Heading mb="5px">Hello! 🌟</Heading>
-      <Text textAlign="justify">
+      <Text >
         {" "}
         <strong>Experience the ultimate task management</strong> with our{" "}
         <strong>feature-rich Todo List application!</strong> Seamlessly add,
@@ -40,7 +40,7 @@ const AboutUs = () => {
       </Text>
       <br />
       <UnorderedList listStyleType="none">
-        <ListItem textAlign="justify">
+        <ListItem >
           <ListIcon
             as={FontAwesomeIcon}
             icon={faCheck}
@@ -51,7 +51,7 @@ const AboutUs = () => {
           all the necessary details, such as due dates, priorities, and
           descriptions.
         </ListItem>
-        <ListItem textAlign="justify">
+        <ListItem >
           <ListIcon
             as={FontAwesomeIcon}
             icon={faPencil}
@@ -62,7 +62,7 @@ const AboutUs = () => {
           descriptions, due dates, priorities, or any other relevant
           information. Adapt your tasks to changing needs effortlessly.
         </ListItem>
-        <ListItem textAlign="justify">
+        <ListItem>
           {" "}
           <ListIcon
             as={FontAwesomeIcon}

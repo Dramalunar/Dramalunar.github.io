@@ -1,4 +1,4 @@
-import { Button, Flex, Heading, Text, useColorMode } from "@chakra-ui/react";
+import { Box,Button, Flex, Heading, Text, useColorMode } from "@chakra-ui/react";
 import { useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { TaskContext } from "../DataContext/TaskContext";
@@ -12,19 +12,19 @@ const Home = () => {
 
   return (
     <Flex
-      w="400px"
-      h="430px"
+      w={{base:"100vw",lg:"400px"}}
+      h={{base:"auto",lg:"430px"}}
       fontFamily="Numans"
       justifyContent="center"
       alignItems="center"
       flexDirection="column"
       bg={colorMode === "light" ? "#fff" : "#000009"}
       borderRadius="10px"
-      padding="20px"
+      p="20px"
       boxShadow="1px 1px 1px rgba(0, 0, 0, 0.4), -1px -1px 1px rgba(0, 0, 0, 0.4)"
     >
-      <Heading textAlign="center">🌟 Welcome to our Todo List!</Heading>
-      <Text textAlign="justify">
+      <Heading textAlign="center"  >🌟 Welcome to our Todo List!</Heading>
+      <Text >
         We're thrilled that you've chosen our application to help you stay
         organized and boost your productivity.
       </Text>
@@ -42,10 +42,12 @@ const Home = () => {
         or simply making a <strong>to-do list</strong> , we're here to assist
         you!
       </Text>
-
-      <Link to={registered ? "/Tasks" : "/login"}>
+      <Box mt="15px">
+        <Link to={registered ? "/Tasks" : "/login"}>
         <Button bg="#1F70F5">Add new task</Button>
       </Link>
+      </Box>
+      
     </Flex>
   );
 };
