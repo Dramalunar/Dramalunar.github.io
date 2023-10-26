@@ -55,6 +55,9 @@ export const TaskProvider = ({ children }) => {
   }, [token]);
 
   useEffect(() => {
+
+    LogOut();
+
     if (registered === true) {
       fetchData();
     }
@@ -267,10 +270,11 @@ export const TaskProvider = ({ children }) => {
           .then((response) => {
             if (response.status === 200) {
               setToken(" ");
-              setRegister(false);
+              
 
               console.log("Se cerró sesión correctamente");
             } else {
+              setRegister(false);
               throw new Error("La solicitud no fue exitosa.");
             }
           })
