@@ -68,6 +68,7 @@ export const Task = ({ task, dispatch }) => {
         w="301px"
         bg={colorMode === "light" ? "#fff" : "#2E2A29"}
         borderRadius={"10px"}
+        mb="10px"
       >
         <form onSubmit={handleSubmit(handleUpdateTask)}>
           <FormControl isInvalid={errors.EditedTitle}>
