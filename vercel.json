@@ -1,0 +1,25 @@
+{
+    "routes": [
+      {
+        "src": "^/tasks",
+        "dest": "/index.html"
+      },
+      {
+        "src": "^/about-us",
+        "dest": "/index.html"
+      },
+      {
+        "src": "^/login",
+        "dest": "/index.html"
+      },
+      {
+        "src": "^/register",
+        "dest": "/index.html"
+      },
+      {
+        "src": ".*",
+        "dest": "/index.html"
+      }
+    ]
+  }
+  

@@ -56,7 +56,7 @@ export const TaskProvider = ({ children }) => {
 
   useEffect(() => {
 
-    LogOut();
+    CheckSesion();
 
     if (registered === true) {
       fetchData();
@@ -271,11 +271,30 @@ export const TaskProvider = ({ children }) => {
             if (response.status === 200) {
               setToken(" ");
               setRegister(false);
-
               console.log("Se cerró sesión correctamente");
+              return "bien";
             } else {
               setRegister(false);
               throw new Error("La solicitud no fue exitosa.");
+            }
+          })
+          .catch((error) => {
+            console.error("Error:", error);
+          });
+        break;
+
+        case "CheckSesion":
+        fetch("https://task-list-back.onrender.com/user/logout", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            authorization: `${token}`,
+          },
+        })
+          .then((response) => {
+            if (response.status !== 200) {
+              setRegister(false);
+              throw new Error("Sesion Caducada.");
             }
           })
           .catch((error) => {
@@ -340,6 +359,10 @@ export const TaskProvider = ({ children }) => {
 
   const LogOut = () => {
     dispatch({ type: "LogOut" });
+  };
+
+  const CheckSesion = () => {
+    dispatch({ type: "CheckSesion" });
   };
 
   const DeleteAllTask = () => {
