@@ -6,14 +6,12 @@ import { TaskContext } from "../DataContext/TaskContext";
 const Home = () => {
   const { colorMode } = useColorMode();
 
-  const navigate = useNavigate();
-
   const {registered} = useContext(TaskContext);
 
   return (
     <Flex
       w={{base:"100vw",lg:"400px"}}
-      h={{base:"auto",lg:"430px"}}
+      h={{base:"auto",lg:"450px"}}
       fontFamily="Numans"
       justifyContent="center"
       alignItems="center"
@@ -44,7 +42,7 @@ const Home = () => {
       </Text>
       <Box mt="15px">
         <Link to={registered ? "/Tasks" : "/login"}>
-        <Button bg="#1F70F5">Add new task</Button>
+        <Button bg="#E01B4E" >Add new task</Button>
       </Link>
       </Box>
       
