@@ -10,7 +10,7 @@ const Home = () => {
 
   return (
     <Flex
-      w={{base:"100vw",lg:"400px"}}
+      w={{base:"90vw",lg:"400px"}}
       h={{base:"auto",lg:"450px"}}
       fontFamily="Numans"
       justifyContent="center"

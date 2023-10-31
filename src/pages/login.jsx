@@ -65,7 +65,7 @@ delay(5000)
         borderRadius="10px"
         boxShadow="1px 1px 1px rgba(0, 0, 0, 0.4), -1px -1px 1px rgba(0, 0, 0, 0.4)"
         w={{base:"90vw",lg:"450px"}}
-        h="300px"
+        minH="300px"
         p="10px"
       >
         <Flex
@@ -86,7 +86,7 @@ delay(5000)
             <form onSubmit={handleSubmit(handleLogIn)}>
               <FormControl isInvalid={errors.Correo && errors.Contraseña}>
                 <Input
-                  w={{base:"100%",lg:"430px"}}
+                  w={{base:"85vw",lg:"430px"}}
                   borderRadius={"0"}
                   boxShadow="-1px 0 0.5px rgba(0, 0, 0, 0.2), 1px 0 0.5px rgba(0, 0, 0, 0.2)"
                   my="5px"
@@ -104,6 +104,7 @@ delay(5000)
                   {isSubmitted && errors.Correo && errors.Correo.message}
                 </FormErrorMessage>
                 <Input
+                w={{base:"85vw",lg:"430px"}}
                   borderRadius={"0"}
                   boxShadow="-1px 0 0.5px rgba(0, 0, 0, 0.2), 1px 0 0.5px rgba(0, 0, 0, 0.2)"
                   my="5px"
@@ -140,6 +141,7 @@ delay(5000)
             )}
 
             <Button
+            mb="15px"
               mt="30px"
               w="100%"
               bg="#42B72A"

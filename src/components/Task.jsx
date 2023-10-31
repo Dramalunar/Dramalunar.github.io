@@ -134,11 +134,12 @@ export const Task = ({ task, dispatch }) => {
           </FormLabel>
 
           <Button
+        
             onClick={handleEditMode}
             display="inline-block"
             textAlign="center"
             h="30px"
-            mr="-15px"
+            p="0"
             fontSize="18px"
             variant="unstyled"
           >
@@ -146,6 +147,8 @@ export const Task = ({ task, dispatch }) => {
           </Button>
 
           <Button
+          w="20px"
+          
             onClick={handleDeleteTask}
             display="inline-block"
             textAlign="center"

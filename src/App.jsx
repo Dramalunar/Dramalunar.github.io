@@ -16,18 +16,24 @@ function AppRouter() {
   return (
     <>
       <BrowserRouter>
-        <Flex flexDirection={"column"} alignItems={"center"} h="100vh">
+        <Flex flexDirection={"column"} alignItems={"center"} minH="100vh" w="100vw">
           <Flex
             flexDirection={"column"}
-            h="20%"
             justifyContent={"flex-start"}
             alignItems={"center"}
+        
           >
             <Header />
-            <Menu />
+
           </Flex>
 
+        <Flex h="10%">
+           <Menu />
+        </Flex>
+
+
           <Flex
+          
             h="80%"
             w="100%"
             alignItems={"baseline"}

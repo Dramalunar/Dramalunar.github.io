@@ -19,7 +19,7 @@ const AboutUs = () => {
 
   return (
     <Flex
-      w={{base:"auto",lg:"1000px"}}
+      w={{base:"90vw",lg:"1000px"}}
       h="auto"
       fontFamily="Ubuntu"
       justifyContent="center"

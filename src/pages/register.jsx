@@ -56,10 +56,11 @@ function Register() {
         borderRadius="10px"
         boxShadow="1px 1px 1px rgba(0, 0, 0, 0.4), -1px -1px 1px rgba(0, 0, 0, 0.4)"
         w={{base:"90vw",lg:"450px"}}
-        h="380px"
+        minH="380px"
         p="15px"
       >
         <Flex
+        
           justifyContent={"baseline"}
           alignItems={"center"}
           flexDirection={"column"}
@@ -68,6 +69,7 @@ function Register() {
         >
           <Heading mb="10px">Create your account</Heading>
           <Flex
+            
             flexDirection={"column"}
             w="100%"
             justifyContent={"center"}
@@ -77,6 +79,7 @@ function Register() {
               <FormControl isInvalid={errors.Correo && errors.Contraseña}>
                 <FormLabel m="0">Your Name</FormLabel>
                 <Input
+                  w={{base:"82vw",lg:"410px"}}
                   mb="10px"
                   borderRadius={"0"}
                   boxShadow="-1px 0 0.5px rgba(0, 0, 0, 0.2), 1px 0 0.5px rgba(0, 0, 0, 0.2)"

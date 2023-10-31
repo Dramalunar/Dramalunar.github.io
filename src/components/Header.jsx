@@ -33,11 +33,13 @@ export const Header = () => {
       mb="15px"
       position={"relative"}
     >
-      <Flex w="60%" h="100%" alignItems={"center"} justifyContent={"flex-end"}>
-        <Heading
+      <Flex  w="60%" h="100%" alignItems={"center"} justifyContent={"flex-end"}>
+        
+           <Heading
+          
           mr="20px"
           as="h1"
-          fontSize={{base:"35px",lg:"50px"}}
+          fontSize={{base:"29px",lg:"50px"}}
           fontFamily="Fantasy"
           bgGradient="linear-gradient(90deg, rgba(131,58,180,1) 0%, rgba(253,29,29,1) 50%, rgba(252,176,69,1) 100%)"
           backgroundClip="text"
@@ -45,10 +47,12 @@ export const Header = () => {
         >
           Task List
         </Heading>
+        
+       
         <ColorModeToggler />
       </Flex>
       <Flex
-      
+     
         h="100%"
         w="40%"
         display={"flex"}
@@ -57,9 +61,9 @@ export const Header = () => {
         px="10px"
         alignItems={"center"}
       >
-        <Flex display={registered ? "none": {base:"inline-block",lg:"flex"}}>
+        <Box display={registered ? "none": {base:"inline-block",lg:"flex"}}>
           <Box
-            boxShadow="1px 1px 1px rgba(0, 0, 0, 0.4), -1px -1px 1px rgba(0, 0, 0, 0.4)"
+           
             fontWeight="bold"
             p="3px 20px "
             borderRadius="10px"
@@ -67,25 +71,26 @@ export const Header = () => {
             mb={{base:"10px",lg:"0"}}
             
           >
-            <Link to="/login">Sing In</Link>
+            <Button onClick={() => navigate("/login")} >Sing Up</Button>
           </Box>
 
           <Box
-            boxShadow="1px 1px 1px rgba(0, 0, 0, 0.4), -1px -1px 1px rgba(0, 0, 0, 0.4)"
+           
             fontWeight="bold"
             p="3px 20px "
             borderRadius="10px"
             mr={{base:"0",lg:"60px"}}
             
           >
-            <Link to="/register">Sing Up</Link>
+            <Button onClick={() => navigate("/register")} >Sing Up</Button>
+            
           </Box>
-        </Flex>
+        </Box>
         <Box
-          
+         
           display={registered ? "inline-block" : "none"}
           fontWeight="bold"
-          p="3px 20px "
+          p={{base:"0",lg:"3px 20px "}}
           borderRadius="10px"
           mr={{lg:"60px"}}
         >

@@ -50,7 +50,7 @@ const TaskList = () => {
 
   return (
     <Flex
-      w="360px"
+      w={{base:"95vw",lg:"360px"}}
       maxH="440px"
       justifyContent="center"
       alignItems="center"
@@ -118,10 +118,11 @@ const TaskList = () => {
 
       <Box
         display="flex"
-        w="320px"
+        w="100%"
         justifyContent="center"
         alignItems="center"
         pt="20px"
+       
       >
         <Text>You have {TaskCount} pending task</Text>
         <Button
